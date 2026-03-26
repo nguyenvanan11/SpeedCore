@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Checkout</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">SPEED<span>CORE</span></div>
+
+    <ul class="menu">
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="shop.html">Sản phẩm</a></li>
+        <li><a href="#">Thương hiệu</a></li>
+        <li><a href="cart.html">Giỏ hàng (<span id="cart-count">0</span>)</a></li>
+    </ul>
+</header>
+
+<div style="padding:40px;">
+  <h2>Thanh toán</h2>
+
+  <input id="name" placeholder="Tên khách hàng" style="padding:10px; width:300px;">
+  <br><br>
+
+  <button onclick="checkout()">Xác nhận</button>
+</div>
+
+<script>
+function checkout() {
+    let cart = JSON.parse(localStorage.getItem("cart"));
+
+    if (!cart || cart.length === 0) {
+        alert("Giỏ hàng rỗng!");
+        return;
+    }
+
+    alert("Thanh toán thành công!");
+    localStorage.removeItem("cart");
+}
+</script>
+
+</body>
+</html>

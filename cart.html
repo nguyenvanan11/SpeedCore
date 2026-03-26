@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng & Thanh toán | SpeedCore</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">SPEED<span>CORE</span></div>
+
+    <ul class="menu">
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="shop.html">Sản phẩm</a></li>
+        <li><a href="#">Thương hiệu</a></li>
+        <li><a href="cart.html">Giỏ hàng (<span id="cart-count">0</span>)</a></li>
+    </ul>
+</header>
+
+<main class="container">
+    <div class="checkout-container">
+        
+        <div class="cart-section">
+            <div class="cart-header">
+                <h2><i class="fas fa-shopping-cart"></i> Giỏ hàng của bạn</h2>
+            </div>
+            
+            <div id="cart-content">
+                </div>
+        </div>
+
+        <div class="checkout-card">
+            <h3><i class="fas fa-file-invoice-dollar"></i> Chi tiết thanh toán</h3>
+            
+            <div class="input-group">
+                <label>Tên khách hàng</label>
+                <input type="text" id="customer-name" placeholder="Nhập tên người nhận...">
+            </div>
+
+            <div class="coupon-section">
+                <label>Mã ưu đãi</label>
+                <div class="coupon-input">
+                    <input type="text" id="coupon-code" placeholder="Nhập mã (Ví dụ: SPEEDCORE50)">
+                    <button onclick="applyCoupon()">Áp dụng</button>
+                </div>
+                <p id="coupon-msg"></p>
+            </div>
+
+            <hr>
+
+            <div class="order-summary">
+                <div class="summary-line">
+                    <span>Tạm tính:</span>
+                    <span id="subtotal">0 VND</span>
+                </div>
+                <div class="summary-line">
+                    <span>Giảm giá:</span>
+                    <span id="discount-amount" style="color: #ff4757;">-0 VND</span>
+                </div>
+                <div class="summary-line total">
+                    <span>Tổng cộng:</span>
+                    <span id="final-total">0 VND</span>
+                </div>
+            </div>
+
+            <button class="btn-checkout" onclick="processCheckout()">
+                XÁC NHẬN ĐẶT HÀNG
+            </button>
+
+            <a href="shop.html" class="back-to-shop">← Tiếp tục mua sắm</a>
+        </div>
+
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/cart.js"></script>
+</body>
+</html>

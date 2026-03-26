@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Shop | SpeedCore</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<div class="header">
+  <div class="logo">SPEED<span>CORE</span></div>
+
+  <ul class="menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="cart.html">Cart</a></li>
+  </ul>
+</div>
+
+<div class="container">
+  <h2 class="section-title">🔥 Tất cả sản phẩm</h2>
+
+  <div class="filter-bar" style="display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #eee;">
+    
+    <input id="search" placeholder="Tìm sản phẩm..." onkeyup="renderProducts()" 
+           style="flex: 2; padding: 12px; border: 1px solid #ddd; border-radius: 4px; outline: none;">
+
+    <select id="filter" onchange="renderProducts()" style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+      <option value="">Tất cả phân loại</option>
+      <option value="running">Running</option>
+      <option value="football">Football</option>
+    </select>
+
+    <select id="price" onchange="renderProducts()" style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+      <option value="">Tất cả mức giá</option>
+      <option value="100">Dưới 100$</option>
+      <option value="200">Dưới 200$</option>
+    </select>
+
+    <select id="currency" onchange="renderProducts()" style="flex: 0.5; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+      <option value="usd">USD</option>
+      <option value="vnd">VND</option>
+    </select>
+  </div>
+
+  <div id="list"></div>
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>

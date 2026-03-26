@@ -1,0 +1,339 @@
+/* ================================================= */
+/* 1. BIẾN TỔNG THỂ (Chuẩn hóa SpeedCore)             */
+/* ================================================= */
+:root {
+    --primary-color: #22c55e; /* Xanh lá SpeedCore */
+    --accent-color: #ff4d4d;  /* Màu nhấn đỏ cho giá/nút */
+    --dark-color: #0f172a;    /* Xanh đen đậm */
+    --text-main: #1e293b;
+    --bg-light: #f4f4f7;
+    --card-bg: #ffffff;
+    --header-height: 80px;
+}
+
+/* ================================================= */
+/* 2. RESET & CẤU TRÚC CHUNG                                 */
+/* ================================================= */
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f4f7;
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ================================================= */
+/* 3. HEADER & NAVIGATION                            */
+/* ================================================= */
+.header {
+    height: var(--header-height);
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 8%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.logo span { color: var(--primary-color); }
+
+.menu {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+.menu a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+/* ================================================= */
+/* 4. HERO BANNER (Trang chủ)                        */
+/* ================================================= */
+.hero {
+    height: 500px;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                url('https://images.unsplash.com/photo-1556906781-9a412961c28c?q=80&w=1920') center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+.hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 10px; }
+.hero p { font-size: 1.2rem; letter-spacing: 2px; }
+
+/* ================================================= */
+/* 5. SHOP LAYOUT (Sidebar & Main Content)           */
+/* ================================================= */
+.shop-layout {
+    display: flex; /* Dàn hàng ngang Sidebar và List */
+    gap: 30px;
+    margin-top: 40px;
+    align-items: flex-start;
+}
+
+.filter-sidebar {
+    flex: 0 0 260px; /* Cố định sidebar 260px, không cho co lại */
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    position: sticky;
+    top: 100px;
+}
+
+.shop-main {
+    flex: 1; /* Chiếm toàn bộ phần còn lại */
+    min-width: 0; /* Quan trọng: Ngăn Grid làm vỡ layout */
+}
+
+/* ================================================= */
+/* 6. PRODUCT GRID & CARD                            */
+/* ================================================= */
+#list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.product {
+    background: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid #eee;
+    overflow: hidden;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.product img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: 0.5s ease;
+}
+
+.product:hover img {
+    transform: scale(1.08);
+}
+
+.product-info {
+    padding: 15px;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.product h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.product .price {
+    color: var(--accent-color);
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.product button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    background: #000;
+    color: #fff;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+.product button:hover {
+    background: var(--primary-color);
+}
+
+/* ================================================= */
+/* 7. GIỎ HÀNG & THANH TOÁN (Layout 2 cột)           */
+/* ================================================= */
+.checkout-container {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.cart-section, .checkout-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.checkout-card {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.item-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f8f8f8;
+    padding: 5px 10px;
+    border-radius: 6px;
+    width: fit-content;
+}
+
+.btn-qty {
+    border: none; background: none; cursor: pointer; font-weight: bold; padding: 0 5px;
+}
+
+.btn-checkout {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, var(--accent-color), #ff6b81);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+}
+
+/* --- FULL-WIDTH MODERN FOOTER --- */
+.main-footer {
+    background: #0f172a; /* Màu xanh đen đặc trưng của SpeedCore */
+    color: #f4f4f7;
+    padding: 80px 0 40px 0;
+    margin-top: 100px;
+    width: 100%; /* Rộng y hệt phần .hero của bạn */
+}
+
+/* Container bên trong giúp nội dung không bị tràn ra mép màn hình */
+.main-footer .container {
+    max-width: 1200px; /* Hoặc dùng padding: 0 8% để khớp với Header */
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px; /* Khoảng cách rộng giúp GUI thanh thoát hơn */
+    align-items: start;
+}
+
+/* Hiệu ứng cho Logo và Info */
+.footer-info .logo.light { font-size: 32px; margin-bottom: 20px; }
+.footer-info .description { color: #94a3b8; margin-bottom: 30px; max-width: 400px; }
+.info-item { margin-bottom: 12px; color: #cbd5e1; font-size: 15px; }
+
+/* Form hiện đại tối giản */
+.footer-form h4 { margin-bottom: 25px; font-size: 20px; text-transform: uppercase; letter-spacing: 1px; }
+.input-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+.footer-form input, .footer-form textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    color: #fff;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.footer-form input:focus, .footer-form textarea:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.btn-footer-send {
+    width: 100%;
+    padding: 16px;
+    background: var(--primary-color); /* Màu xanh lá SpeedCore */
+    color: #fff;
+    border: none;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: 0.4s ease;
+}
+
+.btn-footer-send:hover {
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(34, 197, 94, 0.2);
+}
+
+/* Bottom Bar */
+.footer-bottom {
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-links a { color: #64748b; text-decoration: none; margin-right: 25px; font-size: 13px; transition: 0.3s; }
+.footer-links a:hover { color: var(--primary-color); }
+.copyright { color: #475569; font-size: 13px; }
+
+/* Responsive cho mobile */
+@media (max-width: 900px) {
+    .footer-contact-grid { grid-template-columns: 1fr; gap: 50px; }
+    .input-group { grid-template-columns: 1fr; }
+}
