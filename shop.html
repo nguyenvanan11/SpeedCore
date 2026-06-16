@@ -2,53 +2,146 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Shop | SpeedCore</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sản phẩm | SpeedCore</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-
 <body>
 
-<div class="header">
-  <div class="logo">SPEED<span>CORE</span></div>
+<div class="topbar">🔥 FLASH SALE — Giảm đến 50% &nbsp;|&nbsp; <a href="#">Xem ngay →</a></div>
 
+<header class="header">
+  <a href="index.html" class="logo">SPEED<span>CORE</span></a>
   <ul class="menu">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="shop.html">Shop</a></li>
-    <li><a href="cart.html">Cart</a></li>
+    <li><a href="index.html">Trang chủ</a></li>
+    <li><a href="shop.html" class="active">Sản phẩm</a></li>
+    <li><a href="shop.html?cat=running">Chạy bộ</a></li>
+    <li><a href="shop.html?cat=football">Bóng đá</a></li>
+    <li><a href="shop.html?cat=lifestyle">Lifestyle</a></li>
+    <li><a href="contact.html">Liên hệ</a></li>
+    <li><a href="index.html#contact">Liên hệ</a></li>
   </ul>
-</div>
-
-<div class="container">
-  <h2 class="section-title">🔥 Tất cả sản phẩm</h2>
-
-  <div class="filter-bar" style="display: flex; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #eee;">
-    
-    <input id="search" placeholder="Tìm sản phẩm..." onkeyup="renderProducts()" 
-           style="flex: 2; padding: 12px; border: 1px solid #ddd; border-radius: 4px; outline: none;">
-
-    <select id="filter" onchange="renderProducts()" style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
-      <option value="">Tất cả phân loại</option>
-      <option value="running">Running</option>
-      <option value="football">Football</option>
-    </select>
-
-    <select id="price" onchange="renderProducts()" style="flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
-      <option value="">Tất cả mức giá</option>
-      <option value="100">Dưới 100$</option>
-      <option value="200">Dưới 200$</option>
-    </select>
-
-    <select id="currency" onchange="renderProducts()" style="flex: 0.5; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
-      <option value="usd">USD</option>
-      <option value="vnd">VND</option>
-    </select>
+  <div class="header-search">
+    <span class="header-search__icon">🔍</span>
+    <input type="search" id="header-search" placeholder="Tìm sản phẩm..."
+           onkeyup="syncHeaderSearch(this.value)"
+           onkeydown="if(event.key==='Enter') window.location.href='shop.html?q='+this.value">
   </div>
+  <div class="header-actions">
+    <a href="cart.html" class="cart-btn">🛒 Giỏ hàng <span class="cart-count" id="cart-count">0</span></a>
+    <a href="shop.html" class="btn-header-cta">MUA NGAY</a>
+    <div id="auth-zone" style="margin-left:8px;"></div>
+  </div>
+</header>
 
-  <div id="list"></div>
-</div>
+<main>
+  <div class="container" style="padding-top:48px; padding-bottom:80px;">
 
-<script src="assets/js/data.js"></script>
-<script src="assets/js/main.js"></script>
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:28px;">
+      <div>
+        <h1 class="section-title" style="margin-bottom:6px;">TẤT CẢ <span>SẢN PHẨM</span></h1>
+        <p class="section-sub" style="margin-bottom:0;">Giày thể thao chính hãng — Nike, Adidas, Jordan và hơn thế nữa</p>
+      </div>
+      <div id="count" style="font-size:.82rem; color:var(--text3); flex-shrink:0;"></div>
+    </div>
 
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <input id="search" type="search" placeholder="🔍 Tìm sản phẩm..." onkeyup="applyFilters()" style="flex:2;">
+
+      <select id="filter-brand" onchange="applyFilters()">
+        <option value="">Tất cả thương hiệu</option>
+        <option value="nike">Nike</option>
+        <option value="adidas">Adidas</option>
+        <option value="jordan">Air Jordan</option>
+        <option value="puma">Puma</option>
+        <option value="newbalance">New Balance</option>
+        <option value="converse">Converse</option>
+        <option value="vans">Vans</option>
+        <option value="reebok">Reebok</option>
+        <option value="asics">ASICS</option>
+        <option value="ua">Under Armour</option>
+      </select>
+
+      <select id="filter" onchange="applyFilters()">
+        <option value="">Tất cả danh mục</option>
+        <option value="running">🏃 Chạy bộ</option>
+        <option value="football">⚽ Bóng đá</option>
+        <option value="lifestyle">👟 Lifestyle</option>
+        <option value="training">💪 Tập luyện</option>
+      </select>
+
+      <select id="price" onchange="applyFilters()">
+        <option value="">Tất cả mức giá</option>
+        <option value="2000">Dưới 2.000.000₫</option>
+        <option value="3000">Dưới 3.000.000₫</option>
+        <option value="4000">Dưới 4.000.000₫</option>
+        <option value="5000">Dưới 5.000.000₫</option>
+      </select>
+
+      <select id="sort" onchange="applyFilters()">
+        <option value="new">Mới nhất</option>
+        <option value="reviews">Bán chạy nhất</option>
+        <option value="priceAsc">Giá tăng dần</option>
+        <option value="priceDesc">Giá giảm dần</option>
+        <option value="rating">Đánh giá cao</option>
+      </select>
+    </div>
+
+    <!-- Brand chips -->
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px;" id="brand-chips">
+      <button class="chip active" onclick="quickBrand('', this)">Tất cả</button>
+      <button class="chip" onclick="quickBrand('nike', this)">Nike</button>
+      <button class="chip" onclick="quickBrand('adidas', this)">Adidas</button>
+      <button class="chip" onclick="quickBrand('jordan', this)">Jordan</button>
+      <button class="chip" onclick="quickBrand('puma', this)">Puma</button>
+      <button class="chip" onclick="quickBrand('newbalance', this)">New Balance</button>
+      <button class="chip" onclick="quickBrand('converse', this)">Converse</button>
+      <button class="chip" onclick="quickBrand('vans', this)">Vans</button>
+      <button class="chip" onclick="quickBrand('asics', this)">ASICS</button>
+    </div>
+
+    <div id="list"></div>
+  </div>
+</main>
+
+<footer class="main-footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <div>© 2026 SpeedCore Việt Nam</div>
+      <div class="footer-bottom-links">
+        <a href="index.html">Trang chủ</a>
+        <a href="cart.html">Giỏ hàng</a>
+        <a href="index.html#contact">Liên hệ</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+.chip {
+  background: var(--bg2); border: 1px solid var(--border); color: var(--text2);
+  border-radius: 20px; padding: 6px 16px; font-size:.78rem; font-weight:600;
+  cursor:pointer; transition: all .15s; font-family:inherit;
+}
+.chip:hover, .chip.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+</style>
+
+<script src="assets/js/sc.js"></script>
+<script src="assets/js/shop.js"></script>
+<script>
+  function syncHeaderSearch(val) {
+    const el = document.getElementById('search');
+    if (el) { el.value = val; applyFilters(); }
+  }
+  function quickBrand(brand, btn) {
+    const brandSelect = document.getElementById('filter-brand');
+    if (brandSelect) brandSelect.value = brand;
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    applyFilters();
+  }
+  window.addEventListener('DOMContentLoaded', syncFromURL);
+</script>
 </body>
 </html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập | SpeedCore</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="login-page">
+  <div style="width:100%; max-width:440px;">
+
+    <!-- Back link -->
+    <a href="index.html" style="display:inline-flex; align-items:center; gap:6px; color:var(--text3); font-size:.82rem; font-weight:600; margin-bottom:24px; transition:color .15s;"
+       onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text3)'">
+      ← Về trang chủ
+    </a>
+
+    <div class="login-card">
+      <div class="login-card__logo">
+        SPEED<span>CORE</span>
+        <div style="font-size:.75rem; font-weight:400; color:var(--text3); font-family:'Outfit',sans-serif; margin-top:4px; letter-spacing:.02em;">
+          Tài khoản thành viên
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="login-card__tabs">
+        <div class="login-card__tab active" id="tab-login" onclick="switchTab('login')">ĐĂNG NHẬP</div>
+        <div class="login-card__tab" id="tab-register" onclick="switchTab('register')">ĐĂNG KÝ</div>
+      </div>
+
+      <div class="login-card__body">
+
+        <!-- Login Form -->
+        <div id="form-login" class="auth-form active">
+          <div class="field-group">
+            <label>Email</label>
+            <input type="email" id="login-email" placeholder="email@gmail.com"
+                   onkeydown="if(event.key==='Enter') handleLogin()">
+            <div class="field-error" id="err-login-email">Vui lòng nhập email</div>
+          </div>
+          <div class="field-group">
+            <label>Mật khẩu</label>
+            <div style="position:relative;">
+              <input type="password" id="login-pass" placeholder="••••••••"
+                     onkeydown="if(event.key==='Enter') handleLogin()"
+                     style="padding-right:44px;">
+              <button onclick="togglePass('login-pass',this)"
+                      style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;font-size:.9rem;padding:0;">👁</button>
+            </div>
+            <div class="field-error" id="err-login-pass">Vui lòng nhập mật khẩu</div>
+          </div>
+
+          <div id="login-msg" style="color:var(--accent); font-size:.8rem; text-align:center; min-height:18px; margin-bottom:8px;"></div>
+
+          <button class="btn-auth" onclick="handleLogin()">ĐĂNG NHẬP</button>
+
+          <!-- Demo Accounts -->
+          <div class="demo-accounts" style="margin-top:20px;">
+            <strong>🔑 Tài khoản demo</strong>
+
+            <div class="demo-row">
+              <span><span class="demo-badge">SUPER</span> superadmin@speedcore.vn / Admin@2026!</span>
+              <button class="demo-fill-btn" onclick="fillDemo('superadmin@speedcore.vn','Admin@2026!')">Dùng</button>
+            </div>
+            <div class="demo-row">
+              <span><span class="demo-badge" style="background:rgba(230,57,70,.15);color:var(--accent);">ADMIN</span> admin@speedcore.vn / admin123</span>
+              <button class="demo-fill-btn" onclick="fillDemo('admin@speedcore.vn','admin123')">Dùng</button>
+            </div>
+            <div class="demo-row">
+              <span><span class="demo-badge" style="background:rgba(34,197,94,.12);color:var(--green);">STAFF</span> staff@speedcore.vn / staff123</span>
+              <button class="demo-fill-btn" onclick="fillDemo('staff@speedcore.vn','staff123')">Dùng</button>
+            </div>
+            <div class="demo-row">
+              <span><span class="demo-badge" style="background:rgba(255,255,255,.06);color:var(--text3);">USER</span> user@gmail.com / user123</span>
+              <button class="demo-fill-btn" onclick="fillDemo('user@gmail.com','user123')">Dùng</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Register Form -->
+        <div id="form-register" class="auth-form">
+          <div class="field-group">
+            <label>Họ và tên *</label>
+            <input type="text" id="reg-name" placeholder="Nguyễn Văn A"
+                   onkeydown="if(event.key==='Enter') handleRegister()">
+            <div class="field-error" id="err-reg-name">Vui lòng nhập họ tên (ít nhất 2 ký tự)</div>
+          </div>
+          <div class="field-group">
+            <label>Email *</label>
+            <input type="email" id="reg-email" placeholder="email@gmail.com"
+                   onkeydown="if(event.key==='Enter') handleRegister()">
+            <div class="field-error" id="err-reg-email">Email không hợp lệ hoặc đã tồn tại</div>
+          </div>
+          <div class="field-group">
+            <label>Mật khẩu *</label>
+            <div style="position:relative;">
+              <input type="password" id="reg-pass" placeholder="Ít nhất 6 ký tự"
+                     onkeydown="if(event.key==='Enter') handleRegister()"
+                     style="padding-right:44px;">
+              <button onclick="togglePass('reg-pass',this)"
+                      style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;font-size:.9rem;padding:0;">👁</button>
+            </div>
+            <div class="field-error" id="err-reg-pass">Mật khẩu ít nhất 6 ký tự</div>
+          </div>
+          <div class="field-group">
+            <label>Xác nhận mật khẩu *</label>
+            <input type="password" id="reg-confirm" placeholder="Nhập lại mật khẩu"
+                   onkeydown="if(event.key==='Enter') handleRegister()">
+            <div class="field-error" id="err-reg-confirm">Mật khẩu xác nhận không khớp</div>
+          </div>
+
+          <div id="register-msg" style="color:var(--accent); font-size:.8rem; text-align:center; min-height:18px; margin-bottom:8px;"></div>
+
+          <button class="btn-auth" onclick="handleRegister()">TẠO TÀI KHOẢN</button>
+          <p style="text-align:center; margin-top:16px; font-size:.78rem; color:var(--text3);">
+            Đã có tài khoản? <a href="#" onclick="switchTab('login'); return false;" style="color:var(--accent); font-weight:700;">Đăng nhập ngay</a>
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Trust badges -->
+    <div style="display:flex; justify-content:center; gap:24px; margin-top:20px; font-size:.72rem; color:var(--text3);">
+      <span>🔒 Bảo mật SSL</span>
+      <span>✅ 100% chính hãng</span>
+      <span>🚚 Free ship từ 1tr</span>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/sc.js"></script>
+<script>
+  // Redirect if already logged in
+  const _me = sc.auth.current();
+  if (_me) {
+    window.location.href = sc.auth.isAdmin() ? 'admin.html' : 'index.html';
+  }
+
+  function switchTab(tab) {
+    ['login','register'].forEach(t => {
+      document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+      document.getElementById('form-' + t).classList.toggle('active', t === tab);
+    });
+    document.getElementById('login-msg').textContent = '';
+    document.getElementById('register-msg').textContent = '';
+    clearErrors();
+  }
+
+  function clearErrors() {
+    document.querySelectorAll('.field-error').forEach(e => e.classList.remove('show'));
+    document.querySelectorAll('.field-group').forEach(g => g.classList.remove('has-error'));
+  }
+
+  function showFieldError(id, errId) {
+    document.getElementById(id).closest('.field-group').classList.add('has-error');
+    document.getElementById(errId).classList.add('show');
+  }
+
+  function togglePass(inputId, btn) {
+    const input = document.getElementById(inputId);
+    if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; }
+    else { input.type = 'password'; btn.textContent = '👁'; }
+  }
+
+  function fillDemo(email, pass) {
+    document.getElementById('login-email').value = email;
+    document.getElementById('login-pass').value  = pass;
+    document.getElementById('login-msg').textContent = '';
+  }
+
+  function handleLogin() {
+    clearErrors();
+    const email = document.getElementById('login-email').value.trim();
+    const pass  = document.getElementById('login-pass').value;
+    let valid = true;
+    if (!email) { showFieldError('login-email', 'err-login-email'); valid = false; }
+    if (!pass)  { showFieldError('login-pass', 'err-login-pass'); valid = false; }
+    if (!valid) return;
+
+    const btn = document.querySelector('#form-login .btn-auth');
+    btn.textContent = 'Đang đăng nhập...';
+    btn.disabled = true;
+
+    // Simulate slight delay for UX
+    setTimeout(() => {
+      try {
+        const user = sc.auth.login(email, pass);
+        sc.ui.toast(`👋 Chào mừng, <b>${user.name}</b>!`);
+        setTimeout(() => {
+          const redirect = new URLSearchParams(location.search).get('from');
+          if (redirect) window.location.href = decodeURIComponent(redirect);
+          else if (sc.auth.isAdmin()) window.location.href = 'admin.html';
+          else window.location.href = 'index.html';
+        }, 800);
+      } catch(e) {
+        document.getElementById('login-msg').textContent = '❌ ' + e.message;
+        btn.textContent = 'ĐĂNG NHẬP';
+        btn.disabled = false;
+      }
+    }, 400);
+  }
+
+  function handleRegister() {
+    clearErrors();
+    const name    = document.getElementById('reg-name').value.trim();
+    const email   = document.getElementById('reg-email').value.trim();
+    const pass    = document.getElementById('reg-pass').value;
+    const confirm = document.getElementById('reg-confirm').value;
+    let valid = true;
+
+    if (name.length < 2)  { showFieldError('reg-name',    'err-reg-name');    valid = false; }
+    if (!email.includes('@')) { showFieldError('reg-email','err-reg-email');   valid = false; }
+    if (pass.length < 6)  { showFieldError('reg-pass',    'err-reg-pass');    valid = false; }
+    if (pass !== confirm) { showFieldError('reg-confirm', 'err-reg-confirm'); valid = false; }
+    if (!valid) return;
+
+    try {
+      sc.auth.register(name, email, pass);
+      sc.ui.toast('🎉 Đăng ký thành công! Hãy đăng nhập.');
+      // Pre-fill login form
+      document.getElementById('login-email').value = email;
+      document.getElementById('login-pass').value  = pass;
+      switchTab('login');
+    } catch(e) {
+      showFieldError('reg-email', 'err-reg-email');
+      document.getElementById('err-reg-email').textContent = e.message;
+      document.getElementById('register-msg').textContent = '❌ ' + e.message;
+    }
+  }
+</script>
+</body>
+</html>

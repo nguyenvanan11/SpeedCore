@@ -1,102 +1,356 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>SpeedCore | Hệ thống phân phối đồ thể thao</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpeedCore | Hệ thống phân phối đồ thể thao chính hãng</title>
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<header class="header">
-    <div class="logo">SPEED<span>CORE</span></div>
+<!-- Topbar -->
+<div class="topbar">
+  🔥 FLASH SALE HÔM NAY — Giảm đến 50% giày chính hãng
+  &nbsp;|&nbsp; 🚚 Freeship đơn từ 1.000.000₫
+  &nbsp;|&nbsp; <a href="shop.html">Xem ngay →</a>
+</div>
 
-    <ul class="menu">
-        <li><a href="index.html">Trang chủ</a></li>
-        <li><a href="shop.html">Sản phẩm</a></li>
-        <li><a href="#">Thương hiệu</a></li>
-        <li><a href="cart.html">Giỏ hàng (<span id="cart-count">0</span>)</a></li>
-    </ul>
+<!-- Header -->
+<header class="header">
+  <a href="index.html" class="logo">SPEED<span>CORE</span></a>
+
+  <ul class="menu">
+    <li><a href="index.html" class="active">Trang chủ</a></li>
+    <li><a href="shop.html">Sản phẩm</a></li>
+    <li><a href="shop.html?cat=running">Chạy bộ</a></li>
+    <li><a href="shop.html?cat=football">Bóng đá</a></li>
+    <li><a href="shop.html?cat=lifestyle">Lifestyle</a></li>
+    <li><a href="contact.html">Liên hệ</a></li>
+    <li><a href="#contact">Liên hệ</a></li>
+  </ul>
+
+  <div class="header-search">
+    <span class="header-search__icon">🔍</span>
+    <input type="search" placeholder="Tìm giày, thương hiệu..." id="header-search"
+           onkeydown="if(event.key==='Enter') window.location.href='shop.html?q='+this.value">
+  </div>
+
+  <div class="header-actions">
+    <a href="cart.html" class="cart-btn">
+      🛒 Giỏ hàng
+      <span class="cart-count" id="cart-count">0</span>
+    </a>
+    <a href="shop.html" class="btn-header-cta">MUA NGAY</a>
+    <div id="auth-zone" style="margin-left:8px;"></div>
+  </div>
 </header>
 
+<!-- ── HERO ── -->
 <section class="hero">
-    <h1>SPEED CORE 2026</h1>
-    <p>BỨT PHÁ MỌI GIỚI HẠN</p>
-    <button style="padding: 15px 40px; background: var(--primary-color); border:none; color:white; font-weight:bold; cursor:pointer;">MUA NGAY</button>
+  <div class="hero__bg"></div>
+  <div class="hero__noise"></div>
+  <div class="hero__inner">
+    <div class="hero__content">
+      <span class="hero__tag">NEW COLLECTION 2026</span>
+      <h1 class="hero__title">BỨT PHÁ<br><span>MỌI GIỚI HẠN</span></h1>
+      <p class="hero__desc">
+        SpeedCore — hệ thống phân phối giày thể thao chính hãng Nike, Adidas, Jordan, Puma và hơn 10 thương hiệu hàng đầu thế giới.
+      </p>
+      <div class="hero__btns">
+        <a href="shop.html" class="btn--primary">KHÁM PHÁ NGAY</a>
+        <a href="#featured" class="btn--ghost">XEM BỘ SƯU TẬP</a>
+      </div>
+      <div class="hero__stats">
+        <div><div class="hero__stat-num">24+</div><div class="hero__stat-label">Thương hiệu</div></div>
+        <div><div class="hero__stat-num">4.9★</div><div class="hero__stat-label">Đánh giá</div></div>
+        <div><div class="hero__stat-num">12K+</div><div class="hero__stat-label">Đơn hàng</div></div>
+        <div><div class="hero__stat-num">100%</div><div class="hero__stat-label">Chính hãng</div></div>
+      </div>
+    </div>
+    <div class="hero__media">
+      <div class="hero__img-wrap">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80" alt="SpeedCore Hero">
+        <div class="hero__img-badge hero__img-badge--tl">
+          <div class="num">-50%</div><div class="label">Flash Sale</div>
+        </div>
+        <div class="hero__img-badge hero__img-badge--br">
+          <div class="num">100%</div><div class="label">Chính hãng</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<div class="container">
-    <h2 class="section-title">Sản phẩm mới nhất</h2>
-    <div id="list">
-        </div>
+<!-- ── BRANDS MARQUEE ── -->
+<div class="brands-bar">
+  <div class="brands-track">
+    <span class="brand-item"><span>✦</span>NIKE</span>
+    <span class="brand-item"><span>✦</span>ADIDAS</span>
+    <span class="brand-item"><span>✦</span>JORDAN</span>
+    <span class="brand-item"><span>✦</span>PUMA</span>
+    <span class="brand-item"><span>✦</span>NEW BALANCE</span>
+    <span class="brand-item"><span>✦</span>CONVERSE</span>
+    <span class="brand-item"><span>✦</span>VANS</span>
+    <span class="brand-item"><span>✦</span>REEBOK</span>
+    <span class="brand-item"><span>✦</span>UNDER ARMOUR</span>
+    <span class="brand-item"><span>✦</span>ASICS</span>
+    <span class="brand-item"><span>✦</span>MIZUNO</span>
+    <span class="brand-item"><span>✦</span>SALOMON</span>
+    <span class="brand-item"><span>✦</span>NIKE</span>
+    <span class="brand-item"><span>✦</span>ADIDAS</span>
+    <span class="brand-item"><span>✦</span>JORDAN</span>
+    <span class="brand-item"><span>✦</span>PUMA</span>
+    <span class="brand-item"><span>✦</span>NEW BALANCE</span>
+    <span class="brand-item"><span>✦</span>CONVERSE</span>
+    <span class="brand-item"><span>✦</span>VANS</span>
+    <span class="brand-item"><span>✦</span>REEBOK</span>
+    <span class="brand-item"><span>✦</span>UNDER ARMOUR</span>
+    <span class="brand-item"><span>✦</span>ASICS</span>
+    <span class="brand-item"><span>✦</span>MIZUNO</span>
+    <span class="brand-item"><span>✦</span>SALOMON</span>
+  </div>
 </div>
 
-<div class="container">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-        <div style="height: 300px; background: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff') center/cover; position:relative;">
-             <div style="position:absolute; bottom:20px; left:20px; color:white;">
-                 <h2>NIKE COLLECTION</h2>
-                 <p>Giảm giá đến 30%</p>
-             </div>
-        </div>
-        <div style="height: 300px; background: url('https://images.unsplash.com/photo-1587563871167-1ee9c731aefb') center/cover; position:relative;">
-            <div style="position:absolute; bottom:20px; left:20px; color:white;">
-                <h2>ADIDAS FOOTBALL</h2>
-                <p>Khám phá ngay</p>
-            </div>
-       </div>
+<!-- ── FLASH SALE ── -->
+<section class="section" style="padding-bottom:0;">
+  <div class="container">
+    <div class="flash-sale">
+      <div class="flash-sale__left">
+        <div class="flash-sale__tag"><span class="flash-tag">⚡ FLASH SALE</span></div>
+        <div class="flash-sale__title">GIẢM ĐẾN 50% HÔM NAY</div>
+        <div class="flash-sale__sub">Hàng chính hãng — số lượng có hạn — nhanh tay kẻo hết!</div>
+      </div>
+      <div class="countdown">
+        <div class="cd-block"><div class="cd-num" id="cd-h">08</div><div class="cd-label">Giờ</div></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-block"><div class="cd-num" id="cd-m">00</div><div class="cd-label">Phút</div></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-block"><div class="cd-num" id="cd-s">00</div><div class="cd-label">Giây</div></div>
+      </div>
+      <a href="shop.html?badge=sale" class="flash-sale__cta">XEM SẢN PHẨM SALE →</a>
     </div>
-</div>
+  </div>
+</section>
 
-
-<footer class="main-footer">
-    <div class="container">
-        <div class="footer-contact-grid">
-            <div class="footer-info">
-                <div class="logo light">SPEED<span>CORE</span></div>
-                <p class="description">Hệ thống phân phối giày chính hãng 2026. Bứt phá mọi giới hạn cùng SpeedCore.</p>
-                
-                <div class="info-list">
-                    <div class="info-item">📍 123 Đường ABC, Quận Ninh Kiều, Cần Thơ</div>
-                    <div class="info-item">📞 0123.456.789 - 0987.654.321</div>
-                    <div class="info-item">✉️ support@speedcore.vn</div>
-                </div>
-                
-                <div class="footer-map">
-    <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.84151840816!2d105.76842661093116!3d10.029933690035546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0895a51d60719%3A0x9d76b0035f6d53d0!2zQ8WpbiBUaMahLCBOaW5oIEtp4buBdSwgQ8WpbiBUaMahLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1711335000000!5m2!1svi!2s" 
-        width="100%" 
-        height="220" 
-        style="border:0; border-radius: 12px;" 
-        allowfullscreen="" 
-        loading="lazy">
-    </iframe>
-</div>
-            </div>
-
-            <div class="footer-form">
-                <h4>Gửi tin nhắn cho chúng tôi</h4>
-                <form id="contactForm">
-                    <div class="input-group">
-                        <input type="text" placeholder="Họ và tên" required>
-                        <input type="email" placeholder="Email của bạn" required>
-                    </div>
-                    <textarea placeholder="Nội dung cần hỗ trợ..." rows="4"></textarea>
-                    <button type="submit" class="btn-footer-send">GỬI NGAY</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <div class="footer-links">
-                <a href="#">Chính sách bảo hành</a>
-                <a href="#">Đổi trả hàng</a>
-                <a href="#">Giao hàng</a>
-            </div>
-            <div class="copyright">
-                © 2026 SpeedCore Việt Nam. Mọi quyền được bảo lưu.
-            </div>
-        </div>
+<!-- ── CATEGORIES ── -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">DANH MỤC <span>NỔI BẬT</span></h2>
+        <p class="section-sub">Khám phá theo từng mục đích sử dụng</p>
+      </div>
     </div>
+    <div class="cat-grid">
+      <a href="shop.html?cat=running" class="cat-card">
+        <div class="cat-card__bg" style="background-image:url('https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=600&q=80')"></div>
+        <div class="cat-card__body">
+          <div class="cat-card__icon">🏃</div>
+          <div class="cat-card__name">RUNNING</div>
+          <div class="cat-card__count">8 sản phẩm</div>
+        </div>
+      </a>
+      <a href="shop.html?cat=football" class="cat-card">
+        <div class="cat-card__bg" style="background-image:url('https://images.unsplash.com/photo-1508098682722-e99c643e7f0b?w=600&q=80')"></div>
+        <div class="cat-card__body">
+          <div class="cat-card__icon">⚽</div>
+          <div class="cat-card__name">FOOTBALL</div>
+          <div class="cat-card__count">4 sản phẩm</div>
+        </div>
+      </a>
+      <a href="shop.html?cat=lifestyle" class="cat-card">
+        <div class="cat-card__bg" style="background-image:url('https://images.unsplash.com/photo-1514989940723-e8e51635b782?w=600&q=80')"></div>
+        <div class="cat-card__body">
+          <div class="cat-card__icon">👟</div>
+          <div class="cat-card__name">LIFESTYLE</div>
+          <div class="cat-card__count">10 sản phẩm</div>
+        </div>
+      </a>
+      <a href="shop.html?cat=training" class="cat-card">
+        <div class="cat-card__bg" style="background-image:url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80')"></div>
+        <div class="cat-card__body">
+          <div class="cat-card__icon">💪</div>
+          <div class="cat-card__name">TRAINING</div>
+          <div class="cat-card__count">4 sản phẩm</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURED PRODUCTS ── -->
+<section id="featured" class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">SẢN PHẨM <span>NỔI BẬT</span></h2>
+        <p class="section-sub">Những đôi giày được yêu thích nhất tại SpeedCore</p>
+      </div>
+      <a href="shop.html">Xem tất cả →</a>
+    </div>
+    <div id="list"></div>
+  </div>
+</section>
+
+<!-- ── FULL BANNER ── -->
+<div class="banner-full" style="margin-bottom:80px;">
+  <div class="banner-full__bg" style="background-image:url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1400&q=80')"></div>
+  <div class="banner-full__content">
+    <span class="banner-full__tag">JUST ARRIVED</span>
+    <h2 class="banner-full__title">NIKE AIR MAX<br>COLLECTION 2026</h2>
+    <p class="banner-full__sub">Công nghệ đệm Air Max thế hệ mới — cảm giác bay bổng trong từng bước chạy.</p>
+    <a href="shop.html?brand=nike" class="btn--primary">KHÁM PHÁ NIKE →</a>
+  </div>
+</div>
+
+<!-- ── DUAL BANNER ── -->
+<section style="padding:0 0 80px;">
+  <div class="container">
+    <div class="banner-dual">
+      <a href="shop.html?brand=adidas" class="banner-card">
+        <div class="banner-card__bg" style="background-image:url('https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=800&q=80')"></div>
+        <div class="banner-card__body">
+          <div class="banner-card__tag">ADIDAS COLLECTION</div>
+          <div class="banner-card__title">ULTRABOOST<br>SERIES</div>
+          <div class="banner-card__sub">Năng lượng trả về tối đa với công nghệ Boost</div>
+          <span>Xem bộ sưu tập →</span>
+        </div>
+      </a>
+      <a href="shop.html?brand=jordan" class="banner-card">
+        <div class="banner-card__bg" style="background-image:url('https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800&q=80')"></div>
+        <div class="banner-card__body">
+          <div class="banner-card__tag">AIR JORDAN</div>
+          <div class="banner-card__title">RETRO<br>COLLECTION</div>
+          <div class="banner-card__sub">Huyền thoại tái sinh — Air Jordan 1 & 4</div>
+          <span>Xem bộ sưu tập →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY US ── -->
+<section class="section" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">TẠI SAO CHỌN <span>SPEEDCORE?</span></h2>
+        <p class="section-sub">Cam kết chất lượng và dịch vụ tốt nhất</p>
+      </div>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-card__icon">✅</div>
+        <div class="why-card__title">100% Chính hãng</div>
+        <div class="why-card__desc">Cam kết hoàn tiền 100% nếu phát hiện hàng không chính hãng. Giấy tờ xuất xứ đầy đủ.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card__icon">🚚</div>
+        <div class="why-card__title">Giao hàng nhanh</div>
+        <div class="why-card__desc">Giao trong 2-4h nội thành. Toàn quốc 1-3 ngày. Freeship đơn từ 1 triệu đồng.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card__icon">🔄</div>
+        <div class="why-card__title">Đổi trả 30 ngày</div>
+        <div class="why-card__desc">Không vừa size? Đổi trả miễn phí trong 30 ngày, không cần lý do.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card__icon">💬</div>
+        <div class="why-card__title">Hỗ trợ 24/7</div>
+        <div class="why-card__desc">Đội ngũ tư vấn luôn sẵn sàng qua chat, Zalo, Facebook và hotline.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEWSLETTER ── -->
+<section class="section">
+  <div class="container">
+    <div class="newsletter">
+      <h2 class="newsletter__title">ĐĂNG KÝ NHẬN ƯU ĐÃI <span>ĐỘC QUYỀN</span></h2>
+      <p class="newsletter__sub">Nhận ngay mã giảm 20% cho đơn đầu tiên + cập nhật sản phẩm mới nhất</p>
+      <div class="newsletter__form">
+        <input type="email" placeholder="Email của bạn..." id="nl-email">
+        <button onclick="subscribeNewsletter()">ĐĂNG KÝ NGAY</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="main-footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo light" style="margin-bottom:14px;">SPEED<span>CORE</span></div>
+        <p>Hệ thống phân phối giày thể thao chính hãng 2026. Bứt phá mọi giới hạn cùng SpeedCore.</p>
+        <div class="footer-contact-info">
+          <p>📍 123 Đường ABC, Quận Ninh Kiều, Cần Thơ</p>
+          <p>📞 0123.456.789 — 0987.654.321</p>
+          <p>✉️ support@speedcore.vn</p>
+          <p>⏰ 8:00 – 22:00 mỗi ngày</p>
+        </div>
+        <div class="footer-social">
+          <a href="#" class="social-btn" title="Facebook">📘</a>
+          <a href="#" class="social-btn" title="Instagram">📸</a>
+          <a href="#" class="social-btn" title="TikTok">🎵</a>
+          <a href="#" class="social-btn" title="Zalo">💬</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col__title">Sản phẩm</div>
+        <ul class="footer-col__list">
+          <li><a href="shop.html?cat=running">Giày chạy bộ</a></li>
+          <li><a href="shop.html?cat=football">Giày bóng đá</a></li>
+          <li><a href="shop.html?cat=lifestyle">Giày lifestyle</a></li>
+          <li><a href="shop.html?cat=training">Giày tập luyện</a></li>
+          <li><a href="shop.html?badge=new">Hàng mới về</a></li>
+          <li><a href="shop.html?badge=sale">Đang giảm giá</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title">Thương hiệu</div>
+        <ul class="footer-col__list">
+          <li><a href="shop.html?brand=nike">Nike</a></li>
+          <li><a href="shop.html?brand=adidas">Adidas</a></li>
+          <li><a href="shop.html?brand=jordan">Air Jordan</a></li>
+          <li><a href="shop.html?brand=puma">Puma</a></li>
+          <li><a href="shop.html?brand=newbalance">New Balance</a></li>
+          <li><a href="shop.html?brand=converse">Converse</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col__title">Hỗ trợ</div>
+        <ul class="footer-col__list">
+          <li><a href="#">Hướng dẫn chọn size</a></li>
+          <li><a href="#">Chính sách đổi trả</a></li>
+          <li><a href="#">Chính sách vận chuyển</a></li>
+          <li><a href="#">Câu hỏi thường gặp</a></li>
+          <li><a href="login.html">Đăng nhập / Đăng ký</a></li>
+          <li><a href="#contact">Liên hệ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 SpeedCore Việt Nam. Mọi quyền được bảo lưu.</div>
+      <div class="footer-bottom-links">
+        <a href="#">Điều khoản</a>
+        <a href="#">Bảo mật</a>
+        <a href="#">Cookie</a>
+      </div>
+    </div>
+  </div>
 </footer>
+
+<script src="assets/js/sc.js"></script>
+<script src="assets/js/shop.js"></script>
+<script>
+  function subscribeNewsletter() {
+    const email = document.getElementById('nl-email').value.trim();
+    if (!email || !email.includes('@')) { sc.ui.toast('Vui lòng nhập email hợp lệ!', 'error'); return; }
+    sc.ui.toast(`🎉 Đăng ký thành công! Mã <b>NEWUSER20</b> đã gửi đến ${email}`);
+    document.getElementById('nl-email').value = '';
+  }
+</script>
 </body>
 </html>

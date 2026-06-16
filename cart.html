@@ -1,84 +1,271 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giỏ hàng & Thanh toán | SpeedCore</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giỏ hàng | SpeedCore</title>
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<header class="header">
-    <div class="logo">SPEED<span>CORE</span></div>
+<div class="topbar">🔥 FLASH SALE — Giảm đến 50% &nbsp;|&nbsp; <a href="shop.html">Xem ngay →</a></div>
 
-    <ul class="menu">
-        <li><a href="index.html">Trang chủ</a></li>
-        <li><a href="shop.html">Sản phẩm</a></li>
-        <li><a href="#">Thương hiệu</a></li>
-        <li><a href="cart.html">Giỏ hàng (<span id="cart-count">0</span>)</a></li>
-    </ul>
+<header class="header">
+  <a href="index.html" class="logo">SPEED<span>CORE</span></a>
+  <ul class="menu">
+    <li><a href="index.html">Trang chủ</a></li>
+    <li><a href="shop.html">Sản phẩm</a></li>
+    <li><a href="shop.html?cat=running">Chạy bộ</a></li>
+    <li><a href="shop.html?cat=football">Bóng đá</a></li>
+    <li><a href="shop.html?cat=lifestyle">Lifestyle</a></li>
+    <li><a href="contact.html">Liên hệ</a></li>
+  </ul>
+  <div class="header-search">
+    <span class="header-search__icon">🔍</span>
+    <input type="search" placeholder="Tìm sản phẩm..."
+           onkeydown="if(event.key==='Enter') window.location.href='shop.html?q='+this.value">
+  </div>
+  <div class="header-actions">
+    <a href="cart.html" class="cart-btn" style="border-color:var(--accent);">
+      🛒 Giỏ hàng <span class="cart-count" id="cart-count">0</span>
+    </a>
+    <a href="shop.html" class="btn-header-cta">MUA NGAY</a>
+    <div id="auth-zone" style="margin-left:8px;"></div>
+  </div>
 </header>
 
-<main class="container">
-    <div class="checkout-container">
-        
-        <div class="cart-section">
-            <div class="cart-header">
-                <h2><i class="fas fa-shopping-cart"></i> Giỏ hàng của bạn</h2>
-            </div>
-            
-            <div id="cart-content">
-                </div>
-        </div>
-
-        <div class="checkout-card">
-            <h3><i class="fas fa-file-invoice-dollar"></i> Chi tiết thanh toán</h3>
-            
-            <div class="input-group">
-                <label>Tên khách hàng</label>
-                <input type="text" id="customer-name" placeholder="Nhập tên người nhận...">
-            </div>
-
-            <div class="coupon-section">
-                <label>Mã ưu đãi</label>
-                <div class="coupon-input">
-                    <input type="text" id="coupon-code" placeholder="Nhập mã (Ví dụ: SPEEDCORE50)">
-                    <button onclick="applyCoupon()">Áp dụng</button>
-                </div>
-                <p id="coupon-msg"></p>
-            </div>
-
-            <hr>
-
-            <div class="order-summary">
-                <div class="summary-line">
-                    <span>Tạm tính:</span>
-                    <span id="subtotal">0 VND</span>
-                </div>
-                <div class="summary-line">
-                    <span>Giảm giá:</span>
-                    <span id="discount-amount" style="color: #ff4757;">-0 VND</span>
-                </div>
-                <div class="summary-line total">
-                    <span>Tổng cộng:</span>
-                    <span id="final-total">0 VND</span>
-                </div>
-            </div>
-
-            <button class="btn-checkout" onclick="processCheckout()">
-                XÁC NHẬN ĐẶT HÀNG
-            </button>
-
-            <a href="shop.html" class="back-to-shop">← Tiếp tục mua sắm</a>
-        </div>
-
+<!-- Steps -->
+<div class="container">
+  <div class="checkout-steps">
+    <div class="step active">
+      <div class="step__num">1</div>
+      <span>Giỏ hàng</span>
     </div>
+    <div class="step-line"></div>
+    <div class="step">
+      <div class="step__num">2</div>
+      <span>Thanh toán</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step">
+      <div class="step__num">3</div>
+      <span>Hoàn tất</span>
+    </div>
+  </div>
+</div>
+
+<main class="container">
+  <div class="checkout-container">
+
+    <!-- Cart Items -->
+    <div class="cart-section">
+      <div class="cart-header">
+        <h2>🛒 Giỏ hàng của bạn</h2>
+        <button class="btn-clear-cart" onclick="handleClearCart()">Xoá tất cả</button>
+      </div>
+
+      <!-- Empty state -->
+      <div id="cart-empty" class="cart-empty" style="display:none;">
+        <div class="cart-empty__icon">🛒</div>
+        <div style="font-weight:700; font-size:1rem; margin-bottom:6px;">Giỏ hàng đang trống</div>
+        <div style="font-size:.85rem;">Thêm sản phẩm yêu thích vào giỏ để tiến hành mua sắm</div>
+        <a href="shop.html">← Tiếp tục mua sắm</a>
+      </div>
+
+      <!-- Items -->
+      <div id="cart-content"></div>
+    </div>
+
+    <!-- Order Summary Sidebar -->
+    <div class="checkout-card">
+      <h3 style="display:flex;align-items:center;gap:8px;">📋 Tóm tắt đơn hàng</h3>
+
+      <!-- Coupon -->
+      <div class="coupon-section">
+        <label>Mã ưu đãi</label>
+        <div class="coupon-input">
+          <input type="text" id="coupon-code" placeholder="SPEEDCORE50, NEWUSER20..."
+                 onkeydown="if(event.key==='Enter') applyCoupon()"
+                 oninput="this.value=this.value.toUpperCase()">
+          <button onclick="applyCoupon()">Áp dụng</button>
+        </div>
+        <p id="coupon-msg"></p>
+      </div>
+
+      <hr>
+
+      <!-- Summary -->
+      <div class="order-summary">
+        <div class="summary-line">
+          <span>Tạm tính:</span>
+          <span id="subtotal">0 ₫</span>
+        </div>
+        <div class="summary-line" id="discount-row" style="display:none;">
+          <span>Giảm giá:</span>
+          <span id="discount-amount" style="color:var(--green);">-0 ₫</span>
+        </div>
+        <div class="summary-line">
+          <span>Phí ship:</span>
+          <span id="shipping-fee">30.000 ₫</span>
+        </div>
+        <div class="summary-line total">
+          <span>Tổng cộng:</span>
+          <span id="final-total">0 ₫</span>
+        </div>
+      </div>
+
+      <!-- Coupon hints -->
+      <div style="margin:12px 0; font-size:.72rem; color:var(--text3);">
+        💡 Mã thử: <span style="font-family:monospace; color:var(--gold);">SPEEDCORE50</span> / <span style="font-family:monospace; color:var(--gold);">NEWUSER20</span>
+      </div>
+
+      <button class="btn-checkout" onclick="goToCheckout()">
+        ĐẶT HÀNG NGAY →
+      </button>
+      <a href="shop.html" class="back-to-shop">← Tiếp tục mua sắm</a>
+    </div>
+
+  </div>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/cart.js"></script>
+<footer class="main-footer" style="margin-top:60px;">
+  <div class="container">
+    <div class="footer-bottom">
+      <div>© 2026 SpeedCore Việt Nam</div>
+      <div class="footer-bottom-links">
+        <a href="index.html">Trang chủ</a>
+        <a href="shop.html">Sản phẩm</a>
+        <a href="index.html#contact">Liên hệ</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/sc.js"></script>
+<script>
+  let _appliedDiscount = 0;
+  let _appliedCouponPct = 0;
+
+  function renderCartPage() {
+    const items = sc.cart.get();
+    const emptyEl  = document.getElementById('cart-empty');
+    const contentEl = document.getElementById('cart-content');
+
+    if (items.length === 0) {
+      emptyEl.style.display = 'flex';
+      contentEl.innerHTML = '';
+      updateSummary(0, 0);
+      return;
+    }
+    emptyEl.style.display = 'none';
+
+    contentEl.innerHTML = items.map(item => `
+      <div class="cart-item" id="ci-${item.key}">
+        <img src="${item.img}" alt="${item.name}" class="cart-item__img"
+             onerror="this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=150&q=50'">
+        <div class="cart-item__info">
+          <div class="cart-item__brand">${item.brand.toUpperCase()}</div>
+          <div class="cart-item__name">${item.name}</div>
+          <div class="cart-item__size">Size: ${item.size}</div>
+        </div>
+        <div class="cart-item__price">${sc.ui.fmt(item.price)}</div>
+        <div class="cart-item__qty">
+          <button onclick="changeQty('${item.key}',-1)">−</button>
+          <span>${item.qty}</span>
+          <button onclick="changeQty('${item.key}',1)">+</button>
+        </div>
+        <div class="cart-item__sub">${sc.ui.fmt(item.price * item.qty)}</div>
+        <button class="cart-item__del" onclick="deleteItem('${item.key}')" title="Xoá">✕</button>
+      </div>
+    `).join('');
+
+    const subtotal = sc.cart.total();
+    // Recalc discount if coupon active
+    if (_appliedCouponPct > 0) {
+      _appliedDiscount = Math.round(subtotal * _appliedCouponPct / 100);
+    }
+    updateSummary(subtotal, _appliedDiscount);
+  }
+
+  function changeQty(key, delta) {
+    sc.cart.updateQty(key, delta);
+    renderCartPage();
+  }
+
+  function deleteItem(key) {
+    sc.cart.remove(key);
+    renderCartPage();
+    sc.ui.toast('Đã xoá sản phẩm khỏi giỏ', 'error');
+  }
+
+  function handleClearCart() {
+    if (sc.cart.get().length === 0) return;
+    if (!confirm('Xoá toàn bộ giỏ hàng?')) return;
+    sc.cart.clear();
+    _appliedDiscount = 0;
+    _appliedCouponPct = 0;
+    renderCartPage();
+  }
+
+  function applyCoupon() {
+    const code = document.getElementById('coupon-code').value;
+    const msg  = document.getElementById('coupon-msg');
+    try {
+      const c = sc.coupon.apply(code);
+      const subtotal = sc.cart.total();
+      _appliedCouponPct = c.pct;
+      _appliedDiscount = Math.round(subtotal * c.pct / 100);
+      msg.textContent  = `✅ Áp dụng "${c.label}" — giảm ${c.pct}%`;
+      msg.style.color  = 'var(--green)';
+      sc.ui.toast(`🎉 Mã giảm ${c.pct}% — tiết kiệm ${sc.ui.fmt(_appliedDiscount)}`);
+      updateSummary(subtotal, _appliedDiscount);
+    } catch(e) {
+      msg.textContent = '❌ ' + e.message;
+      msg.style.color = 'var(--accent)';
+      _appliedDiscount = 0;
+      _appliedCouponPct = 0;
+      updateSummary(sc.cart.total(), 0);
+    }
+  }
+
+  function updateSummary(subtotal, discount) {
+    const shipping = subtotal >= 1000000 ? 0 : 30000;
+    const total = Math.max(0, subtotal - discount) + shipping;
+
+    document.getElementById('subtotal').textContent = sc.ui.fmt(subtotal);
+    document.getElementById('shipping-fee').textContent = shipping === 0 ? 'Miễn phí 🎉' : sc.ui.fmt(shipping);
+    document.getElementById('final-total').textContent  = sc.ui.fmt(total);
+
+    const discRow = document.getElementById('discount-row');
+    const discEl  = document.getElementById('discount-amount');
+    if (discount > 0) {
+      discRow.style.display = '';
+      discEl.textContent = '-' + sc.ui.fmt(discount);
+    } else {
+      discRow.style.display = 'none';
+    }
+  }
+
+  function goToCheckout() {
+    if (sc.cart.get().length === 0) {
+      sc.ui.toast('Giỏ hàng đang trống!', 'warn');
+      return;
+    }
+    // Save draft for checkout page
+    const subtotal = sc.cart.total();
+    const shipping = subtotal >= 1000000 ? 0 : 30000;
+    localStorage.setItem('sc_order_draft', JSON.stringify({
+      cart: sc.cart.get(),
+      subtotal,
+      discount: _appliedDiscount,
+      couponPct: _appliedCouponPct,
+      shipping,
+      total: Math.max(0, subtotal - _appliedDiscount) + shipping
+    }));
+    window.location.href = 'checkout.html';
+  }
+
+  document.addEventListener('DOMContentLoaded', renderCartPage);
+</script>
 </body>
 </html>

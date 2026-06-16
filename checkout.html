@@ -1,45 +1,321 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-  <title>Checkout</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanh toán | SpeedCore</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-
 <body>
 
-<header class="header">
-    <div class="logo">SPEED<span>CORE</span></div>
+<div class="topbar">🔥 FLASH SALE — Giảm đến 50% &nbsp;|&nbsp; <a href="shop.html">Xem ngay →</a></div>
 
-    <ul class="menu">
-        <li><a href="index.html">Trang chủ</a></li>
-        <li><a href="shop.html">Sản phẩm</a></li>
-        <li><a href="#">Thương hiệu</a></li>
-        <li><a href="cart.html">Giỏ hàng (<span id="cart-count">0</span>)</a></li>
-    </ul>
+<header class="header">
+  <a href="index.html" class="logo">SPEED<span>CORE</span></a>
+  <ul class="menu">
+    <li><a href="index.html">Trang chủ</a></li>
+    <li><a href="shop.html">Sản phẩm</a></li>
+  </ul>
+  <div class="header-search">
+    <span class="header-search__icon">🔍</span>
+    <input type="search" placeholder="Tìm sản phẩm..."
+           onkeydown="if(event.key==='Enter') window.location.href='shop.html?q='+this.value">
+  </div>
+  <div class="header-actions">
+    <a href="cart.html" class="cart-btn">
+      🛒 Giỏ hàng <span class="cart-count" id="cart-count">0</span>
+    </a>
+    <div id="auth-zone" style="margin-left:8px;"></div>
+  </div>
 </header>
 
-<div style="padding:40px;">
-  <h2>Thanh toán</h2>
-
-  <input id="name" placeholder="Tên khách hàng" style="padding:10px; width:300px;">
-  <br><br>
-
-  <button onclick="checkout()">Xác nhận</button>
+<!-- Steps -->
+<div class="container">
+  <div class="checkout-steps">
+    <div class="step done">
+      <div class="step__num">✓</div>
+      <span>Giỏ hàng</span>
+    </div>
+    <div class="step-line done"></div>
+    <div class="step active">
+      <div class="step__num">2</div>
+      <span>Thanh toán</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step">
+      <div class="step__num">3</div>
+      <span>Hoàn tất</span>
+    </div>
+  </div>
 </div>
 
-<script>
-function checkout() {
-    let cart = JSON.parse(localStorage.getItem("cart"));
+<!-- Empty guard -->
+<div id="empty-guard" style="display:none; text-align:center; padding:80px 40px; color:var(--text3);">
+  <div style="font-size:3rem; opacity:.3; margin-bottom:16px;">🛒</div>
+  <p style="margin-bottom:20px;">Giỏ hàng trống, vui lòng thêm sản phẩm trước.</p>
+  <a href="shop.html" class="btn--primary">← Quay lại cửa hàng</a>
+</div>
 
-    if (!cart || cart.length === 0) {
-        alert("Giỏ hàng rỗng!");
-        return;
+<main class="container" id="checkout-main">
+  <div class="checkout-layout">
+
+    <!-- Left: Forms -->
+    <div>
+      <!-- Shipping Info -->
+      <div class="form-card">
+        <div class="form-card__head">
+          <span>📦</span> Thông tin giao hàng
+        </div>
+        <div class="form-card__body">
+          <div class="form-grid">
+            <div class="field-group">
+              <label>Họ và tên *</label>
+              <input type="text" id="f-name" placeholder="Nguyễn Văn A">
+              <div class="field-error" id="err-name">Vui lòng nhập họ tên</div>
+            </div>
+            <div class="field-group">
+              <label>Số điện thoại *</label>
+              <input type="tel" id="f-phone" placeholder="0901 234 567">
+              <div class="field-error" id="err-phone">Vui lòng nhập số điện thoại</div>
+            </div>
+            <div class="field-group field--full">
+              <label>Email</label>
+              <input type="email" id="f-email" placeholder="email@gmail.com">
+            </div>
+            <div class="field-group field--full">
+              <label>Địa chỉ giao hàng *</label>
+              <input type="text" id="f-address" placeholder="Số nhà, tên đường, phường/xã...">
+              <div class="field-error" id="err-address">Vui lòng nhập địa chỉ</div>
+            </div>
+            <div class="field-group">
+              <label>Tỉnh / Thành phố</label>
+              <select id="f-province">
+                <option value="">Chọn tỉnh/thành</option>
+                <option value="cantho">Cần Thơ</option>
+                <option value="hcm">TP. Hồ Chí Minh</option>
+                <option value="hanoi">Hà Nội</option>
+                <option value="danang">Đà Nẵng</option>
+                <option value="other">Tỉnh khác</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label>Ghi chú</label>
+              <input type="text" id="f-note" placeholder="Giao giờ hành chính, để tại cổng...">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment -->
+      <div class="form-card">
+        <div class="form-card__head">
+          <span>💳</span> Phương thức thanh toán
+        </div>
+        <div class="form-card__body">
+          <label class="pay-option">
+            <input type="radio" name="payment" value="cod" checked onchange="toggleBankInfo()">
+            <div>
+              <div class="pay-option__label">💵 Thanh toán khi nhận hàng (COD)</div>
+              <div class="pay-option__desc">Thanh toán bằng tiền mặt khi nhận hàng — an toàn và tiện lợi</div>
+            </div>
+          </label>
+
+          <label class="pay-option">
+            <input type="radio" name="payment" value="bank" onchange="toggleBankInfo()">
+            <div>
+              <div class="pay-option__label">🏦 Chuyển khoản ngân hàng</div>
+              <div class="pay-option__desc">Chuyển khoản trước, đơn được xử lý ngay khi nhận được tiền</div>
+              <div class="bank-info" id="bank-info">
+                Ngân hàng: <strong>Vietcombank</strong><br>
+                Số TK: <strong>1234 5678 9012</strong><br>
+                Chủ TK: <strong>SPEEDCORE VIETNAM</strong><br>
+                Nội dung CK: <strong>[Số điện thoại] - SpeedCore</strong>
+              </div>
+            </div>
+          </label>
+
+          <label class="pay-option">
+            <input type="radio" name="payment" value="momo" onchange="toggleBankInfo()">
+            <div>
+              <div class="pay-option__label">🟣 Ví MoMo</div>
+              <div class="pay-option__desc">Thanh toán qua MoMo — nhanh, ưu đãi đến 50k cho đơn đầu</div>
+            </div>
+          </label>
+
+          <label class="pay-option">
+            <input type="radio" name="payment" value="zalopay" onchange="toggleBankInfo()">
+            <div>
+              <div class="pay-option__label">🔵 ZaloPay</div>
+              <div class="pay-option__desc">Thanh toán bằng ZaloPay — hoàn tiền 10% cho lần đầu</div>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Order Summary -->
+    <div class="order-card">
+      <div class="order-card__head">Đơn hàng của bạn</div>
+      <div class="order-items" id="order-items">
+        <!-- Loaded by JS -->
+      </div>
+      <div class="order-totals" id="order-totals">
+        <div class="total-row"><span>Tạm tính</span><span id="co-subtotal">0 ₫</span></div>
+        <div class="total-row" id="co-disc-row" style="display:none;"><span>Giảm giá</span><span id="co-disc" style="color:var(--green);">-0 ₫</span></div>
+        <div class="total-row"><span>Phí vận chuyển</span><span id="co-ship">30.000 ₫</span></div>
+        <div class="total-final">
+          <span>Tổng thanh toán</span>
+          <span id="co-total">0 ₫</span>
+        </div>
+      </div>
+      <button class="btn-submit" onclick="placeOrder()">✓ XÁC NHẬN ĐẶT HÀNG</button>
+      <div style="text-align:center; padding:0 22px 20px; font-size:.72rem; color:var(--text3);">
+        🔒 Thanh toán bảo mật SSL · Đổi trả 30 ngày miễn phí
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Success Overlay -->
+<div class="success-overlay" id="success-overlay">
+  <div class="success-box">
+    <div class="success-box__icon">🎉</div>
+    <h2>Đặt hàng thành công!</h2>
+    <p>Cảm ơn bạn đã tin tưởng SpeedCore.<br>Đơn hàng của bạn đang được xử lý.</p>
+    <div class="order-id" id="success-order-id">SC000000</div>
+    <p style="font-size:.8rem;">Chúng tôi sẽ liên hệ xác nhận qua điện thoại trong 30 phút.</p>
+    <div style="display:flex; gap:12px; justify-content:center; margin-top:20px; flex-wrap:wrap;">
+      <a href="index.html" class="btn--primary">🏠 Về trang chủ</a>
+      <a href="shop.html" class="btn--ghost">Tiếp tục mua sắm</a>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/sc.js"></script>
+<script>
+  let _draft = null;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    _draft = JSON.parse(localStorage.getItem('sc_order_draft') || 'null');
+
+    if (!_draft || !_draft.cart || _draft.cart.length === 0) {
+      document.getElementById('checkout-main').style.display = 'none';
+      document.getElementById('empty-guard').style.display = 'block';
+      return;
     }
 
-    alert("Thanh toán thành công!");
-    localStorage.removeItem("cart");
-}
+    // Pre-fill from logged-in user
+    const user = sc.auth.current();
+    if (user) {
+      document.getElementById('f-name').value  = user.name || '';
+      document.getElementById('f-email').value = user.email || '';
+    }
+
+    // Render order items
+    const itemsEl = document.getElementById('order-items');
+    itemsEl.innerHTML = _draft.cart.map(item => `
+      <div class="order-item">
+        <img src="${item.img}" alt="${item.name}" class="order-item__img"
+             onerror="this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100&q=50'">
+        <div>
+          <div class="order-item__name">${item.name}</div>
+          <div class="order-item__size">Size ${item.size} × ${item.qty}</div>
+        </div>
+        <div class="order-item__price">${sc.ui.fmt(item.price * item.qty)}</div>
+      </div>
+    `).join('');
+
+    // Totals
+    document.getElementById('co-subtotal').textContent = sc.ui.fmt(_draft.subtotal);
+    document.getElementById('co-ship').textContent = _draft.shipping === 0 ? 'Miễn phí 🎉' : sc.ui.fmt(_draft.shipping);
+    document.getElementById('co-total').textContent  = sc.ui.fmt(_draft.total);
+    if (_draft.discount > 0) {
+      document.getElementById('co-disc-row').style.display = '';
+      document.getElementById('co-disc').textContent = '-' + sc.ui.fmt(_draft.discount);
+    }
+  });
+
+  function toggleBankInfo() {
+    const val = document.querySelector('input[name="payment"]:checked')?.value;
+    document.getElementById('bank-info').classList.toggle('show', val === 'bank');
+  }
+
+  function validate() {
+    let ok = true;
+    const fields = [
+      { id:'f-name',    err:'err-name',    test: v => v.trim().length >= 2 },
+      { id:'f-phone',   err:'err-phone',   test: v => /^(0|\+84)\d{8,10}$/.test(v.replace(/\s/g,'')) },
+      { id:'f-address', err:'err-address', test: v => v.trim().length >= 5 },
+    ];
+    fields.forEach(({ id, err, test }) => {
+      const input = document.getElementById(id);
+      const errEl = document.getElementById(err);
+      const val = input.value;
+      const valid = test(val);
+      input.closest('.field-group').classList.toggle('has-error', !valid);
+      errEl.classList.toggle('show', !valid);
+      if (!valid) ok = false;
+    });
+    return ok;
+  }
+
+  function placeOrder() {
+    if (!validate()) {
+      sc.ui.toast('Vui lòng điền đầy đủ thông tin!', 'error');
+      return;
+    }
+
+    const paymentMethod = document.querySelector('input[name="payment"]:checked')?.value || 'cod';
+    const user = sc.auth.current();
+
+    const order = sc.orders.create({
+      userId: user?.id || 'guest',
+      customerName: document.getElementById('f-name').value.trim(),
+      phone: document.getElementById('f-phone').value.trim(),
+      email: document.getElementById('f-email').value.trim(),
+      address: document.getElementById('f-address').value.trim(),
+      province: document.getElementById('f-province').value,
+      note: document.getElementById('f-note').value.trim(),
+      payment: paymentMethod,
+      cart: _draft.cart,
+      subtotal: _draft.subtotal,
+      discount: _draft.discount,
+      shipping: _draft.shipping,
+      total: _draft.total,
+    });
+
+    // Clear cart & draft
+    sc.cart.clear();
+    localStorage.removeItem('sc_order_draft');
+
+    // Show success
+    document.getElementById('success-order-id').textContent = order.id;
+    document.getElementById('success-overlay').classList.add('show');
+    sc.cart.renderBadge();
+  }
 </script>
 
+<footer class="footer" style="margin-top:60px;">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo" style="font-size:1.4rem;margin-bottom:10px;">SPEED<span>CORE</span></div>
+      <p>Giày thể thao chính hãng — nhanh hơn, mạnh hơn, đẳng cấp hơn.</p>
+    </div>
+    <div>
+      <h4>Mua sắm</h4>
+      <ul><li><a href="shop.html">Tất cả sản phẩm</a></li><li><a href="shop.html?cat=running">Chạy bộ</a></li><li><a href="shop.html?cat=football">Bóng đá</a></li></ul>
+    </div>
+    <div>
+      <h4>Hỗ trợ</h4>
+      <ul><li><a href="contact.html">Liên hệ</a></li><li><a href="#">Chính sách đổi trả</a></li><li><a href="#">Theo dõi đơn hàng</a></li></ul>
+    </div>
+    <div>
+      <h4>Theo dõi</h4>
+      <ul><li><a href="#">Facebook</a></li><li><a href="#">Instagram</a></li><li><a href="#">TikTok</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 SpeedCore. All rights reserved.</div>
+</footer>
 </body>
 </html>
